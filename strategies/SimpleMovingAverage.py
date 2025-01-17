@@ -1,12 +1,15 @@
-import backtrader as bt
+import backtesting as bt
+import pandas as pd
+
+from backtesting.test import SMA
 
 
 class SimpleMovingAverageStrategy(bt.Strategy):
 
 
-    def __init__(self):
-        self.short_sma = bt.indicators.MovingAverageSimple(self.data.Close, period=5)
-        self.long_sma = bt.indicators.MovingAverageSimple(self.data.Close, period=20)
+    def init(self):
+        self.short_sma = self.I(SMA, self.data.Close, 1)
+        self.long_sma = self.I(SMA, self.data.Close, 3)
 
 
     def next(self):

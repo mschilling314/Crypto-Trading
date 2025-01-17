@@ -20,16 +20,18 @@ class DataLoader():
     def fetch(self) -> pd.DataFrame:
         yf_ticker = yf.Ticker(ticker=self.ticker)
         data = yf_ticker.history(start = self.start, end = self.end, interval = self.interval)
-        data.index = data.index.tz_localize(None)
+        data["Datetime"] = data.index.tz_localize(None)
+        data.reset_index(drop=True)
         return data
 
 
-    def load(self) -> None:
+    def load(self) -> pd.DataFrame:
         if os.path.exists(self.pathname):
             self.data = pd.read_csv(self.pathname)
         else:
             self.data = self.fetch()
             self.write()
+        return self.data
         
 
     def write(self):
@@ -37,6 +39,6 @@ class DataLoader():
         
 
 if __name__=="__main__":
-    loader = DataLoader(start="2024-01-01", end="2024-07-01")
+    loader = DataLoader()
     data = loader.load()
     
