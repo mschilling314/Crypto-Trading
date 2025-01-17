@@ -13,8 +13,8 @@ class SimpleMovingAverageStrategy(bt.Strategy):
 
 
     def next(self):
-        if self.short_sma > self.long_sma and not self.position:
+        if self.short_sma[-1] > self.long_sma[-1] and self.short_sma[-2] <= self.long_sma[-2]:
             self.buy()
 
-        if self.short_sma < self.long_sma and self.position:
+        if self.short_sma[-1] < self.long_sma[-1] and self.short_sma[-2] >= self.long_sma[-2]:
             self.sell()

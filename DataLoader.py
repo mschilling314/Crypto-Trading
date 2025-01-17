@@ -6,7 +6,7 @@ import pandas as pd
 class DataLoader():
     # TODO: extend so that it can deal with different starts/ends/intervals without ALWAYS reloading?
 
-    def __init__(self, ticker: str="BTC-USD", start: str="2020-01-01", end: str="2025-01-01", interval: str="1d") -> None:
+    def __init__(self, ticker: str="BTC-USD", start: str="2024-12-21", end: str="2025-01-16", interval: str="1m") -> None:
         self.ticker = ticker
         self.start = start
         self.end = end
